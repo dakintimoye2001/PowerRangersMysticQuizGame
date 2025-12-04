@@ -66,8 +66,7 @@ h1 {
     <input type="radio" name="q2" value="The Underworld" id="q2b"><label for="q2b">The Underworld</label><br>
     <input type="radio" name="q2" value="Mystic Realm" id="q2c"><label for="q2c">Mystic Realm</label><br>
         <button class="submitBtn" type="button">Check Answer</button>
-<p id="display"></p>
-      </div>
+</div>
 
   <div class="questionSet" id="q3" hidden>
     <p>3. Who is the mentor that guides the Mystic Rangers?</p>
@@ -75,8 +74,7 @@ h1 {
     <input type="radio" name="q3" value="Leanbow" id="q3b"><label for="q3b">Leanbow</label><br>
     <input type="radio" name="q3" value="Daggeron" id="q3c"><label for="q3c">Daggeron</label><br>
       <button class="submitBtn" type="button">Check Answer</button>
-  <p id="display"></p>
-    </div>
+  </div>
 
   <div class="questionSet" id="q4" hidden>
     <p>4. What do the Rangers use to transform (morph)?</p>
@@ -84,8 +82,6 @@ h1 {
     <input type="radio" name="q4" value="Power Coins" id="q4b"><label for="q4b">Power Coins</label><br>
     <input type="radio" name="q4" value="Magic Crystals" id="q4c"><label for="q4c">Magic Crystals</label><br>
      <button class="submitBtn" type="button">Check Answer</button>
-     <p id="display"></p>
-
 
   </div>
 
@@ -95,7 +91,6 @@ h1 {
     <input type="radio" name="q5" value="Udonna" id="q5b"><label for="q5b">Udonna</label><br>
     <input type="radio" name="q5" value="Maddie" id="q5c"><label for="q5c">Maddie</label><br>
       <button class="submitBtn" type="button">Check Answer</button>
-<p id="display"></p>
 
   </div>
 
@@ -105,7 +100,6 @@ h1 {
     <input type="radio" name="q6" value="Nick" id="q6b"><label for="q6b">Nick</label><br>
     <input type="radio" name="q6" value="Vida" id="q6c"><label for="q6c">Vida</label><br>
      <button class="submitBtn" type="button">Check Answer</button>
-<p id="display"></p>
 
   </div>
 
@@ -115,7 +109,6 @@ h1 {
     <input type="radio" name="q7" value="Underworld Army" id="q7b"><label for="q7b">Underworld Army</label><br>
     <input type="radio" name="q7" value="Psycho Rangers" id="q7c"><label for="q7c">Psycho Rangers</label><br>
       <button class="submitBtn" type="button">Check Answer</button>
-<p id="display"></p>
 
   </div>
 
@@ -125,7 +118,6 @@ h1 {
     <input type="radio" name="q8" value="Rock Porium" id="q8b"><label for="q8b">Rock Porium</label><br>
     <input type="radio" name="q8" value="Mystic Market" id="q8c"><label for="q8c">Mystic Market</label><br>
     <button class="submitBtn" type="button">Check Answer</button>
-<p id="display"></p>
 
   </div>
 
@@ -135,7 +127,6 @@ h1 {
     <input type="radio" name="q9" value="Nick’s brother" id="q9b"><label for="q9b">Nick’s brother</label><br>
     <input type="radio" name="q9" value="Solaris Knight" id="q9c"><label for="q9c">Solaris Knight</label><br>
       <button class="submitBtn" type="button">Check Answer</button>
-<p id="display"></p>
 
   </div>
 
@@ -145,9 +136,7 @@ h1 {
     <input type="radio" name="q10" value="Mystic Phoenix" id="q10b"><label for="q10b">Mystic Phoenix</label><br>
     <input type="radio" name="q10" value="Mystic Megazord" id="q10c"><label for="q10c">Mystic Megazord</label><br>
     <button class="submitBtn" type="button">Check Answer</button>
-<p id="display"></p>
 
-    <button class="reset" type="button"> Reset </button>
   </div>
 
   <!-- Buttons -->
@@ -168,28 +157,39 @@ h1 {
 <script> 
 
 document.body.style.backgroundColor = ' #9B1B30';
+
+
 document.querySelector('h1').style.color = '#D4AF37';
 
+
+
+// Red Ranger create output report 
+
+/* 
+document.createElement('p')
+
+
+paragraph.id = 'redresult'; 
+paragraph.innerHTML = 'The correct answer is {score}';
+
+
+document.body.appendChild(paragraph);
+
+*/
+
+// Removes all questions execpt 1 while 1 is up
+
+/*
+document.getElementById('q1').hidden = false;
+
+document.getElementById('q2').hidden = true;
+document.getElementById('q3').hidden = true;
+
+*/
 
 let currentQuestion = 1;
 const totalQuestions = 10;
 let score = 0;
-
-// Answer arrays 
-const correctAnswers = [
-  "Nick",            // q1
-  "Mystic Realm",    // q2
-  "Udonna",          // q3
-  "Mystic Morphers", // q4
-  "Udonna",          // q5
-  "Xander",          // q6
-  "Underworld Army", // q7
-  "Rock Porium",     // q8
-  "Leanbow",         // q9
-  "Mystic Titan"     // q10
-];
-
-// Show my question 
 
 const ShowQuestion = (number) => {
     for (let i = 1; i <= totalQuestions; i++) {
@@ -200,93 +200,103 @@ const ShowQuestion = (number) => {
 
 ShowQuestion(currentQuestion); // shows the first question
 
-// Back and Next Buttons 
-document.getElementById('backBtn').addEventListener('click', function() {
-  if (currentQuestion > 1) {
-    currentQuestion--;
-    ShowQuestion(currentQuestion);
-  }
-});
+document.getElementById('nextBtn').addEventListener('click', function() {
+    document.getElementById('q' + currentQuestion).hidden = true;
 
-  document.getElementById('nextBtn').addEventListener('click', function() {
-  if (currentQuestion < totalQuestions) {
     currentQuestion++;
-    ShowQuestion(currentQuestion);
- } else {
-    alert('Quiz finished! Your score ' + score + '/' + totalQuestions);
- }
-});
 
-// Check Answer 
-
-function checkAnswer(questionNumber) {
-
-    // Get the display area inside the correct question div
-    const questionDiv = document.getElementById(`q${questionNumber}`);
-    const display = questionDiv.querySelector("p#display");
-
-    // Get radios
-    const radios = document.querySelectorAll(`input[name="q${questionNumber}"]`);
-
-    // Find which one is checked
-    const selected = Array.from(radios).find(radio => radio.checked);
-
-    // If none picked
-    if (!selected) {
-        display.innerHTML = "Pick an option!";
-        return;
-    }
-
-    // Correct answer?
-    if (selected.value === correctAnswers[questionNumber - 1]) {
-        display.innerHTML = "Correct!";
-        score++;
-        selected.nextElementSibling.style.color = "green";
+    if (currentQuestion <= totalQuestions) {
+        document.getElementById('q' + currentQuestion).hidden = false;
     } else {
-        display.innerHTML = "Wrong! Try again.";
-        selected.nextElementSibling.style.color = "red";
+        alert('Quiz finished');
     }
-}
-// Attach checkAnswer to all buttons dynamically
-document.querySelectorAll(".submitBtn").forEach((btn, index) => {
-  btn.addEventListener("click", () => {
-    checkAnswer(index + 1); // index 0 -> q1
-  });
 });
 
 
-function resetQuiz (questionNumber) {
-  /*
-  when on last questionNumber go to question 1 and reset the colors 
-  */
+// When someone click the check answer button 
+
+let eventTarget = document.getElementById('q' + currentQuestion);
 
 
- if (currentQuestion === totalQuestions) {
-    currentQuestion = 1;
-    ShowQuestion(currentQuestion);
- }
- 
-  score = 0;
-
-      // Clear all radio buttons
-    document.querySelectorAll('input[type="radio"]').forEach(radio => {
-        radio.checked = false;
-
-         });
-
- // Clear all display messages and reset label colors
-    document.querySelectorAll('p#display').forEach(display => {
-        display.innerHTML = '';
-        // Reset the color of all labels inside this question
-        display.parentElement.querySelectorAll('label').forEach(label => {
-            label.style.color = ''; // default color
-        });
-    });
+// Code when question one check answered is clicked 
 
 
+
+
+
+// code when 1st check answer button is clicked
+
+/*
+let selectNick = document.querySelector('input[name="q1"]:checked').value;
+console.log(selectNick);
+
+let selectChip = document.querySelector('input[name="q1"]:checked').value;
+console.log(selectChip);
+
+let selectVida = document.querySelector('input[name="q1"]:checked').value;
+console.log(selectVida);
+*/
+
+
+// getting value of button in javascript 
+
+const checkButton = document.getElementById('button1');
+
+// event handler if Nick is right, then checkAnswer firing event is fired 
+
+
+
+checkButton.addEventListener('click', function() {
+  // Get selected radio button inside the click
+
+  let checkedRadioButton = document.querySelector('input[name="q1"]:checked');
+
+  if (checkedRadioButton) {
+    let value = checkedRadioButton.value; // now safe to use 
+    console.log('You selected:' , value);
+  } else {
+    checkedRadioButton = document.querySelector('input[name="q1"]:checked').value;
+  }
+  
+  if (checkedRadioButton === '') {
+    let rightorWrong = document.getElementById('display');
+    rightorWrong.innerHTML = 'Pick a option!.';
+  }
+ if (checkedRadioButton == 'Chip' || checkedRadioButton == 'Vida') {
+    rightorWrong.innerHTML = 'You are wrong. Try again!';
+    let element = document.querySelector('.submitBtn'); 
+    // Changes submit button to red if answer is wrong
+    element.onclick = function() {
+        element.style.backgroundColor = '#5C3A72';
+        element.style.color = 'red';
+        alert('JS is working!');
+    };
+} else {
+    rightorWrong.innerHTML = 'Correct!';
+    score++;
+    let element = document.querySelector('.submitBtn');
+    // Makes button green if it is correct
+    element.onclick = function() {
+        element.style.backgroundColor = 'green';
+        element.style.color = 'white';
+    };
 }
-// add Event Listener for the Reset Button on question 10 
-document.querySelector('.reset').addEventListener('click', resetQuiz);
+
+
+
+
+
+
+// Create innerHtml text for when input is wrong
+
+
+
+// code when next is clicked 
+
+
+
+
+// code when back is clicked 
 
 
 </script>
