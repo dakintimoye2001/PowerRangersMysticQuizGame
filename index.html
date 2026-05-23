@@ -9,11 +9,12 @@
 :root {
   /* Mystic Force Color Palette */
   --mystic-blue: #1B2A49;      /* Main dark background */
-  --mystic-purple: #5C3A72;    /* Accent / headings */
   --crimson-spell: #9B1B30;    /* Call-to-action buttons */
   --silver-wand: #CFCFCF;      /* Text on dark backgrounds */
   --magic-gold: #D4AF37;       /* Highlights, borders, icons */
   --nightshade-black: #0E0B16; /* Ultra-dark background or footer */
+  --background-color: #CFCFCF;
+  --foreground-color:#62008F;
 }
 
 .showQuestion  {
@@ -21,18 +22,83 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    background-color: var(--mystic-blue);
+    background-color: var(--background-color);
     color: var(--magic-gold);
     max-width: 1200px;
-    height: 800px;
-    width: 100%;
+   min-height: 80vh;
+    padding: 2rem;
+
 
 }
 
+.showBackground {
+  background-color: var(--mystic-blue);
+    color: var(--magic-gold);
+    max-width: 1200px;
+ 
+   
+}
+
+.questionSet {
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+}
 
 h1 {
   text-align: center;
 }
+
+
+/* dark overlay layer */
+.showQuestion::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4); /* darkness level */
+    pointer-events: none;
+}
+
+.showQuestion > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+.questionSet > p {
+  font-size: 2rem;
+  color: var(--magic-gold) ;
+}
+
+
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+
+  .showQuestion {
+      padding: 1rem;
+      min-height: 100vh;
+  }
+
+  .questionSet > p {
+      font-size: 1.3rem;
+  }
+
+  button {
+      width: 100%;
+  }
+
+}
+
 
 </style>
 
@@ -154,6 +220,7 @@ h1 {
   <div class="buttons">
     <button id="backBtn">Back</button>
     <button id="nextBtn">Next</button>
+
   </div>
 
 
@@ -189,6 +256,20 @@ const correctAnswers = [
   "Mystic Titan"     // q10
 ];
 
+  const questionGallery = [
+    "backimg/question1img.jpg",
+    "backimg/mysticrealm.png",
+    "backimg/koragg.jpg",
+    "backimg/question4.jpg",
+    "backimg/question5.png",
+    "backimg/rockporium.png",
+    "backimg/question7.jpg",
+    "backimg/underworldquestion8.png"
+  ];
+
+      const randomBackground = questionGallery[Math.floor(Math.random() * questionGallery.length)];
+
+
 // Show my question 
 
 const ShowQuestion = (number) => {
@@ -200,22 +281,49 @@ const ShowQuestion = (number) => {
 
 ShowQuestion(currentQuestion); // shows the first question
 
+
+// Show random background 
+
+function showBackground() {
+  let backImg = document.querySelector(".showQuestion");
+
+  let randomBackground =
+    questionGallery[Math.floor(Math.random() * questionGallery.length)];
+
+  backImg.style.backgroundImage = `url(${randomBackground})`;
+  backImg.style.backgroundSize = "cover";
+  backImg.style.backgroundPosition = "center";
+}
+
+
 // Back and Next Buttons 
 document.getElementById('backBtn').addEventListener('click', function() {
+
+
   if (currentQuestion > 1) {
     currentQuestion--;
     ShowQuestion(currentQuestion);
+
   }
 });
 
   document.getElementById('nextBtn').addEventListener('click', function() {
-  if (currentQuestion < totalQuestions) {
+   
+    if (currentQuestion < totalQuestions) {
     currentQuestion++;
     ShowQuestion(currentQuestion);
+    showBackground();
  } else {
     alert('Quiz finished! Your score ' + score + '/' + totalQuestions);
  }
 });
+
+
+
+
+
+
+
 
 // Check Answer 
 
